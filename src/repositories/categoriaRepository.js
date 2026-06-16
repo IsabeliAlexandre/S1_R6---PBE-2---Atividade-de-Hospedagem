@@ -21,7 +21,7 @@ const categoriaRepository = {
     },
 
     editar: async (categoria) => {
-        console.log("VERSAO NOVA DO REPOSITORY");
+        
         const conn = await connection.getConnection();
         try {
             const sql = 'UPDATE categorias SET nome=?, descricao=? WHERE id_categoria = ?';
