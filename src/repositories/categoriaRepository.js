@@ -4,28 +4,29 @@ const categoriaRepository = {
     criar: async (categoria) => {
         const conn = await connection.getConnection();
         try {
-            await conn.beginTransaction(); // Inicia a transação corretamente para escrita
+            await conn.beginTransaction();
+
             const sql = 'INSERT INTO categorias (nome, descricao) VALUES (?, ?)';
             const values = [categoria.nome, categoria.descricao];
-            
-            // CORREÇÃO: Utiliza a conexão 'conn' obtida do pool
+
             const [rows] = await conn.execute(sql, values);
+
             await conn.commit();
             return rows;
         } catch (error) {
-            await conn.rollback(); // Desfaz alterações em caso de erro
+            await conn.rollback();
             throw error;
         } finally {
-            conn.release(); // Liberta a conexão de volta para a pool
+            conn.release();
         }
     },
 
     editar: async (categoria) => {
         const conn = await connection.getConnection();
         try {
-            const sql = 'UPDATE categorias SET nome=?, descricao=? WHERE id_categoria = ?';
+            const sql = 'UPDATE categorias SET nome=?, descricao=? WHERE id = ?';
             const values = [categoria.nome, categoria.descricao, categoria.id];
-            
+
             const [rows] = await conn.execute(sql, values);
             return rows;
         } catch (error) {
@@ -38,9 +39,9 @@ const categoriaRepository = {
     deletar: async (id) => {
         const conn = await connection.getConnection();
         try {
-            const sql = 'DELETE FROM categorias WHERE id_categoria = ?';
+            const sql = 'DELETE FROM categorias WHERE id = ?';
             const values = [id];
-            
+
             const [rows] = await conn.execute(sql, values);
             return rows;
         } catch (error) {
@@ -54,7 +55,7 @@ const categoriaRepository = {
         const conn = await connection.getConnection();
         try {
             const sql = 'SELECT * FROM categorias';
-            
+
             const [rows] = await conn.execute(sql);
             return rows;
         } catch (error) {
@@ -67,9 +68,9 @@ const categoriaRepository = {
     selecionarUm: async (id) => {
         const conn = await connection.getConnection();
         try {
-            const sql = 'SELECT * FROM categorias where id_categoria = ?';
+            const sql = 'SELECT * FROM categorias WHERE id = ?';
             const values = [id];
-            
+
             const [rows] = await conn.execute(sql, values);
             return rows;
         } catch (error) {

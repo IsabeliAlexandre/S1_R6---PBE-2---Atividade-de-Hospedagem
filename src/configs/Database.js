@@ -1,7 +1,6 @@
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
-
 // Singleton para a conexão com o banco de dados
 class Database {
     static #instance = null;
