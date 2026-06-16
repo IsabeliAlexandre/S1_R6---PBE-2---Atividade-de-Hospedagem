@@ -10,6 +10,6 @@ app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 app.use('/', routes);
 
-app.listen(process.env.DB_SERVER, () => {
-    console.log(`Servidor rodando em http://${process.env.DB_HOST}:/${process.env.DB_SERVER}`);
+app.listen(process.env.SERVER_PORT, () => {
+    console.log(`Servidor rodando em http://${process.env.DB_HOST}:/${process.env.SERVER_PORT}`);
 });
